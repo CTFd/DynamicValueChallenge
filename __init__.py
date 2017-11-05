@@ -171,21 +171,19 @@ class DynamicValueChallenge(BaseChallenge):
         """
         chal = DynamicChallenge.query.filter_by(id=chal.id).first()
 
-        provided_key = request.form['key'].strip()
-        solve = Solves(teamid=team.id, chalid=chal.id, ip=utils.get_ip(req=request), flag=provided_key)
-        db.session.add(solve)
-
         solve_count = Solves.query.join(Teams, Solves.teamid == Teams.id).filter(Solves.chalid==chal.id, Teams.banned==False).count()
 
-        value = chal.initial - (chal.initial * math.log(solve_count, chal.decay))
+        value = (((chal.minimum - chal.initial)/(chal.decay**2)) * (solve_count**2)) + chal.initial
         value = math.ceil(value)
-
-        print value
 
         if value < chal.minimum:
             value = chal.minimum
 
         chal.value = value
+
+        provided_key = request.form['key'].strip()
+        solve = Solves(teamid=team.id, chalid=chal.id, ip=utils.get_ip(req=request), flag=provided_key)
+        db.session.add(solve)
 
         db.session.commit()
         db.session.close()
