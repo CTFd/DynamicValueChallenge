@@ -41,7 +41,7 @@ so that higher valued challenges have a slower drop from their initial value.
 
 # Installation
 
-**REQUIRES: CTFd v1.0.5**
+**REQUIRES: CTFd >= v1.0.5**
 
 1. Clone this repository to `CTFd/plugins`. It is important that the folder is
 named `DynamicValueChallenge` so CTFd can serve the files in the `assets`
