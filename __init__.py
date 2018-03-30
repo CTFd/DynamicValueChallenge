@@ -1,3 +1,4 @@
+from __future__ import division # Use floating point for math calculations
 from CTFd.plugins.challenges import BaseChallenge, CHALLENGE_CLASSES
 from CTFd.plugins import register_plugin_assets_directory
 from CTFd.plugins.keys import get_key_class
@@ -173,7 +174,14 @@ class DynamicValueChallenge(BaseChallenge):
 
         solve_count = Solves.query.join(Teams, Solves.teamid == Teams.id).filter(Solves.chalid==chal.id, Teams.banned==False).count()
 
-        value = (((chal.minimum - chal.initial)/(chal.decay**2)) * (solve_count**2)) + chal.initial
+        # It is important that this calculation takes into account floats.
+        # Hence this file uses from __future__ import division
+        value = (
+                    (
+                        (chal.minimum - chal.initial)/(chal.decay**2)
+                    ) * (solve_count**2)
+                ) + chal.initial
+
         value = math.ceil(value)
 
         if value < chal.minimum:
