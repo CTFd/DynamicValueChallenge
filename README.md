@@ -6,6 +6,12 @@ after each solve.
 This CTFd plugin creates a dynamic challenge type which implements this
 behavior. Each dynamic challenge starts with an initial point value and then
 each solve will decrease the value of the challenge until a minimum point value.
+
+By reducing the value of the challenge on each solve, all users who have previously 
+solved the challenge will have lowered scores. Thus an easier and more solved 
+challenge will naturally have a lower point value than a harder and less solved 
+challenge. 
+
 Within CTFd you are free to mix and match regular and dynamic challenges.
 
 The current implementation requires the challenge to keep track of three values:
