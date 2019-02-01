@@ -1,5 +1,7 @@
 # Dynamic Value Challenges for CTFd
 
+#### NOTE: This plugin has been integrated into CTFd as of 2.0.0. Please file any issues at the [main CTFd repo](https://github.com/CTFd/CTFd)
+
 It's becoming commonplace in CTF to see challenges whose point values decrease
 after each solve.
 
